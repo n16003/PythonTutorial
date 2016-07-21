@@ -21,10 +21,10 @@ def judgement(player , computer):
     :return:プレイヤーが勝ちの場合は１、あいこは０、負けは−１を返す
     """
     if player == computer:
-        if player == 1:
-        if player == 2:
-        if player == 3:
-        return 0
+        if player == 1 or player == 2 or player == 3:
+
+            return 0
+
     else:
         if player == 1:
             if computer == 2:
@@ -52,9 +52,11 @@ def save_score(result):
     """
     f = open ("score.txt","w")
 
-    result = {'win' : x , 'lose' : y, 'draw' : z}
+    pass
 
-    f.write(result)
+    res = {'win' : x , 'lose' : y, 'draw' : z}
+
+    f.write(res)
 
     f.close()
 
@@ -62,7 +64,7 @@ def save_score(result):
 
     return
 
-if __name__=='__main':
+if __name__=='__main__':
     player = int (input('グー(1)/チョキ(2)/パー(3)を選んでください(数字):'))
     computer = select_hand()
     result =judgement(player , computer)
