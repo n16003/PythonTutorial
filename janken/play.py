@@ -1,3 +1,5 @@
+import json
+
 HANDS = ('グー', 'チョキ', 'パー')
 
 
@@ -15,51 +17,42 @@ def select_hand():
 
 def judgement(player, computer):
     if player == computer:
-
         return 0
 
+    if player == 0 and computer ==1:
+        return 1
+    if player ==1 and computer  ==2:
+        return 1
+    if player ==2 and computer  ==0:
+        return 1
+
     else:
-        if player == 1:
-            if computer == 1:
-                return 1
-            if computer == 2:
-                return -1
-        if player == 2:
-            if computer == 0:
-                return -1
-            if computer == 2:
-                return 1
-        if player == 3:
-            if computer == 0:
-                return 1
-            if computer == 1:
-                return -1
+        return -1
+
 
 
 def save_score(result):
-    f = open("score.txt", "w")
-    x = y = z == 0
-    res = {'win': x, 'lose': y, 'draw': z}
+    res = {"win":0, "lose":0, "draw":0}
 
-    if judgement() == 0:
-        res['draw'] += 1
+    with open ("score.txt" ,"r") as f:
+        res =json.load(f)
 
-    if judgement() == 1:
-        res['win'] += 1
 
-    if judgement() == -1:
-        res['lose'] += 1
+    with open('score.txt', 'w') as f:
 
-    f.write(res)
+        if result == 1:
+            res["win"]  +=1
+        if result == -1:
+            res["lose"] +=1
+        if result == 0:
+            res["draw"] +=1
+        strlist = json .dumps(res)
+        f.write(strlist)
 
-    f.close()
-
-    print>>f, "score.py"
-
-    return
+    return None
 
 if __name__ == '__main__':
-    player = int(input('グー(1)/チョキ(2)/パー(3)を選んでください(数字):'))
+    player = int(input('グー(1)/チョキ(2)/パー(3)を選んでください(数字):'))-1
     computer = select_hand()
     result = judgement(player, computer)
     # コンピューターの手と勝敗の結果を表示
